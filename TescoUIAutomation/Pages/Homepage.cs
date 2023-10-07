@@ -10,7 +10,7 @@ using TescoUIAutomation.Pages;
 namespace TescoUIAutomation.Pages
 {
     public class Homepage
-    {
+    {//
         private IWebDriver _driver;
 
         public Homepage(IWebDriver driver)
