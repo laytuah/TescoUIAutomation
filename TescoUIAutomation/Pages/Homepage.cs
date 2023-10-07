@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,17 @@ namespace TescoUIAutomation.Pages
         }
 
         By registerLink = By.CssSelector("a[href*='register']");
+        By confirmationSalutation = By.XPath("//h1[@class='styled__StyledPageTitle-sc-119w3hf-0 geScBb styled__SalutationHeading-sc-1jsbdha-1 ldOZEY']");
 
         public RegisterPage ClickOnRegisterLink()
         {
             _driver.FindElement(registerLink).Click();
             return new RegisterPage(_driver);
+        }
+
+        public string CheckSalutation()
+        {
+            return _driver.FindElement(confirmationSalutation).Text.Trim();
         }
 
     }

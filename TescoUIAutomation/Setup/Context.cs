@@ -29,6 +29,7 @@ namespace TescoUIAutomation.Setup
         {
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
             _driver.Navigate().GoToUrl(baseUrl);
+            _driver.Manage().Window.Maximize();
         }
         
         [AfterScenario]

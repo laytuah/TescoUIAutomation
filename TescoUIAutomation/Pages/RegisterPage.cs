@@ -28,10 +28,73 @@ namespace TescoUIAutomation.Pages
         By townField = By.Id("town");
         By postCodeField = By.Id("postcode");
         By submitBtn = By.XPath("//span[text()='Create account']");
-        By confirmationText = By.XPath("//h1[text()='Hi Abdlateef, welcome to Tesco']");
         By acceptCookies = By.CssSelector("[class*='styled__BaseButton-rsekm1-0 styled__Secondary']");
+        By addressField = By.Id("search-input-1");
+        //By addressDropdown = By.XPath("//a[@id='0b329c2d-857a-4045-9622-356afbcd74c8']");
+        By addressDropdown = By.Id("0b329c2d-857a-4045-9622-356afbcd74c8");
+        By clubcardOption = By.XPath("//input[@id='pages.landing.clubcard.radio-labels.opt-out']");
+        By tescoBank = By.XPath("//input[@id='bank-1']");
+        By tescoMobile = By.XPath("//input[@id='mobile-2']");
+        By popupTextbox = By.XPath("//textarea[@placeholder]");
+        By registerNowBtn = By.XPath("//span[text()='Register now']");
+        By listOfAddressSuggested = By.XPath("//ul[@role='menu']/li");
 
+        //public ConfirmationPage ClickRegisterNowButton()
+        //{
+        //    _driver.FindElement(registerNowBtn).Click();
+        //    return new ConfirmationPage(_driver);
+        //}
 
+        public void ClickRegisterNowButton()
+        {
+            _driver.FindElement(registerNowBtn).Click();
+        }
+
+        public void FillInRegistrationPopUp(string reasonForOptingOut)
+        {
+            _driver.FindElement(popupTextbox).Clear();
+            _driver.FindElement(popupTextbox).SendKeys(reasonForOptingOut);
+        }
+
+        public void ClickTescoMobileCheckbox()
+        {
+            _driver.FindElement(tescoMobile).Click();
+        }
+
+        public void ClickTescoBankCheckbox()
+        {
+            _driver.FindElement(tescoBank).Click();
+        }
+
+        public void ClickClubcardOption()
+        {
+            _driver.FindElement(clubcardOption).Click();
+        }
+
+        //public void ClickAddressFromDropdown()
+        //{
+        //    _driver.FindElement(addressDropdown).Click();
+        //}
+
+        public void ClickAddressFromDropdown(string address)
+        {
+            IList<IWebElement> listOfAddress = _driver.FindElements(listOfAddressSuggested);
+            foreach (IWebElement item in listOfAddress)
+            {
+                if (item.Text.Trim().Contains(address))
+                {
+                    item.Click();
+                    break;
+                }
+            }
+        }
+
+        public void FillInAddress(string address)
+        {
+            _driver.FindElement(addressField).Clear();
+            _driver.FindElement(addressField).SendKeys(address);
+
+        }
         public void FillInEmailField(string email)
         {
             _driver.FindElement(emailField).Clear();
@@ -97,11 +160,6 @@ namespace TescoUIAutomation.Pages
         public void ClickOnCreateButton()
         {
             _driver.FindElement(submitBtn).Click();
-        }
-
-        public string CheckConfirmationText()
-        {
-            return _driver.FindElement(confirmationText).Text.Trim();
         }
 
         public void AcceptCookies()

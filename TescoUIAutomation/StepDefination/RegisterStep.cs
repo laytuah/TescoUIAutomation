@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using OpenQA.Selenium.Support.UI;
 using System;
 using TechTalk.SpecFlow;
 using TescoUIAutomation.Pages;
@@ -12,12 +13,15 @@ namespace TescoUIAutomation.StepDefinition
         Context _context;
         Homepage _homepage;
         RegisterPage _registerpage;
+        ConfirmationPage _confirmationPage;
 
-        public RegisterSteps(Context context, Homepage homepage, RegisterPage registerpage)
+        public RegisterSteps(Context context, Homepage homepage, 
+            RegisterPage registerpage, ConfirmationPage confirmationPage)
         {
             _context = context;
             _homepage = homepage;
             _registerpage = registerpage;
+            _confirmationPage = confirmationPage;
 
         }
         
@@ -103,8 +107,63 @@ namespace TescoUIAutomation.StepDefinition
         [Then(@"a new user account '(.*)' must be created")]
         public void ThenANewUserAccountMustBeCreated(string expectedResult)
         {
-            string actualResult = _registerpage.CheckConfirmationText();
+            string actualResult = _confirmationPage.CheckConfirmationText();
             Assert.IsTrue(actualResult.Contains(expectedResult));
+        }
+
+        [When(@"a user clicks the I'm not interested in joining clubcard Checkbox")]
+        public void WhenAUserClicksTheIMNotInterestedInJoiningClubcardCheckbox()
+        {
+            _registerpage.ClickClubcardOption();
+        }
+
+        [When(@"a user fills in the Address field with '(.*)'")]
+        public void WhenAUserFillsInTheAddressFieldWith(string address)
+        {
+            _registerpage.FillInAddress(address);
+        }
+
+        [When(@"a user clicks the Tesco Bank Checkbox")]
+        public void WhenAUserClicksTheTescoBankCheckbox()
+        {
+            _registerpage.ClickTescoBankCheckbox();
+        }
+
+        [When(@"a user clicks the Tesco Mobile Checkbox")]
+        public void WhenAUserClicksTheTescoMobileCheckbox()
+        {
+            _registerpage.ClickTescoMobileCheckbox();
+        }
+
+        [When(@"a user clicks on the Register Now button")]
+        public void WhenAUserClicksOnTheButton()
+        {
+            _registerpage.ClickRegisterNowButton();
+        }
+
+        [When(@"a user fill in the text field on the popup screen with '(.*)'")]
+        public void WhenAUserFillInTheTextFieldOnThePopupScreenWith(string reasonForOptingOut)
+        {
+            _registerpage.FillInRegistrationPopUp(reasonForOptingOut);
+        }
+
+        [When(@"a user clicks '(.*)' from the address dropdown")]
+        public void WhenAUserClicks186DLONDONROADFromTheAddressDropdown(string address)
+        {
+            _registerpage.ClickAddressFromDropdown(address);
+        }
+
+        [When(@"a user clicks on Homepage buton")]
+        public void WhenAUserClicksOnHomepageButon()
+        {
+            _confirmationPage.ClickHomepageLink();
+        }
+
+        [Then(@"a new user '(.*)' must be created")]
+        public void ThenANewUserMustBeCreated(string expectedSalutaion)
+        {
+            string actualSalution = _homepage.CheckSalutation();
+            Assert.IsTrue(actualSalution.Contains(expectedSalutaion));
         }
     }
 }
